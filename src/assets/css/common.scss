@@ -1,0 +1,105 @@
+body{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+
+}
+*{
+    box-sizing: border-box;
+}
+
+.container{
+    width: 1170px;
+    margin: 0 auto;
+    display: block;
+}
+
+.flex-prnt-login{
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    .flex-left{
+        width: 50%;
+        background: #1C1D21;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        .form-login{
+            width:400px;
+            h3{
+                font-size: 40px;
+                color: #FFFFFF;
+                font-weight: 600;
+                margin: 0;
+            }
+            h5{
+                font-size: 14px;
+                color: #FFFFFF;
+                font-weight: 400;
+                margin: 15px 0 30px 0;
+            }
+            .frm-grp{
+                display: block;
+                margin: 15px 0;
+                .frm-field{
+                    font-size: 16px;
+                    font-family: "Poppins", sans-serif;
+                    font-weight: 400;
+                    color: #FFFFFF;
+                    width: 100%;
+                    border: 0;
+                    outline: none;
+                    border-bottom: 1px solid #FFFFFF;
+                    background: transparent;
+                    padding: 10px;
+                    &::placeholder{
+                        opacity: 0.5;
+                        color: #FFFFFF;
+                    }
+                }
+                .frm-btn{
+                    background: #9C6FE4;
+                    font-family: "Poppins", sans-serif;
+                    font-weight: 500;
+                    font-size: 16px;
+                    display: block;
+                    padding: 10px;
+                    border: 0;
+                    width: 100%;
+                    text-align: center;
+                    outline: none;
+                    margin-top: 30px;
+                    display: block;
+                    color: #FFFFFF;
+                    cursor: pointer;
+                    border-radius: 12px;
+                }
+            }
+        }
+    }
+    .flex-right{
+        width: 50%;
+        background: #925FE2;
+        display: flex;
+        align-items: flex-end;
+        img{
+            width: 100%;
+
+        }
+    }
+}
+
+.sm-para{
+    font-size: 15px;
+    color: #FFFFFF;
+    font-weight: 400;
+    a{
+        color: #FFFFFF;
+    }
+}
+
+.invalid{
+    color: red;
+}
