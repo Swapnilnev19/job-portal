@@ -7,6 +7,7 @@ const FormCommon = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [role, setRole] = useState('user');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,7 +21,7 @@ const FormCommon = () => {
 
     if (isSignUp) {
       try {
-        await axios.post('http://localhost:3000/users', { username, password });
+        await axios.post('http://localhost:3000/users', { username, password, role });
         setMessage('User registered successfully!');
       } catch (error) {
         setMessage('Error registering user.');
@@ -35,7 +36,11 @@ const FormCommon = () => {
         );
         if (user) {
           setMessage('Login successful!');
-          navigate('/dashboard');
+          if (user.role === 'admin') {
+            navigate('/dashboard');
+          } else {
+            navigate('/user-dashboard');
+          }
         } else {
           setMessage('Invalid credentials.');
         }
@@ -67,49 +72,55 @@ const FormCommon = () => {
 
       <div className='flex-prnt-login'>
             <div className='flex-left'>
-           
-      <form onSubmit={handleSubmit} className='form-login'>
-        <h3>{isSignUp ? 'Sign Up' : isLogin ? 'Login' : 'Forgot Password'}</h3>
-        {isLogin ? <h5>Please Enter Your Credentials</h5> : ""}
-        <div className='frm-grp'>
-          <input
-            type="text"
-            placeholder="Username" className='frm-field'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        {(isSignUp || isLogin) && (
-          <div className='frm-grp'>
-            <input
-              type="password"
-              placeholder="Password" className='frm-field'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p className='sm-para'><Link to="/forget-password">Forget Password</Link></p>
-          </div>
-        )}
-        {isForgotPassword && (
-          <div className='frm-grp'>
-            <input
-              type="password"
-              placeholder="New Password" className='frm-field'
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-          </div>
-        )}
-        <div className='frm-grp'>
-        <button type="submit" className='frm-btn'>
-          {isSignUp ? 'Sign Up' : isLogin ? 'Login' : 'Reset Password'}
-        </button>
-        
-        <p className='sm-para'><Link to="/sign-up">Sign up</Link></p>
-        </div>
-        {message && <p className='invalid'>{message}</p>}
-      </form>
-      
+                <form onSubmit={handleSubmit} className='form-login'>
+                  <h3>{isSignUp ? 'Sign Up' : isLogin ? 'Login' : 'Forgot Password'}</h3>
+                  {isLogin ? <h5>Please Enter Your Credentials</h5> : ""}
+                  <div className='frm-grp'>
+                    <input
+                      type="text"
+                      placeholder="Username" className='frm-field'
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </div>
+                  {(isSignUp || isLogin) && (
+                    <div className='frm-grp'>
+                      <input
+                        type="password"
+                        placeholder="Password" className='frm-field'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      {isLogin ? <p className='sm-para'><Link to="/forgot-password">Forget Password</Link></p> : "" }
+                    </div>
+                  )}
+                  {isSignUp && (
+                    <div className='frm-grp'>
+                      <select value={role} onChange={(e) => setRole(e.target.value)} className='frm-field'>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                    </div>
+                  )}
+                  {isForgotPassword && (
+                    <div className='frm-grp'>
+                      <input
+                        type="password"
+                        placeholder="New Password" className='frm-field'
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                      />
+                    </div>
+                  )}
+                  <div className='frm-grp'>
+                  <button type="submit" className='frm-btn'>
+                    {isSignUp ? 'Sign Up' : isLogin ? 'Login' : 'Reset Password'}
+                  </button>
+                  
+                  <p className='sm-para'>{isLogin ? <Link to="/sign-up">Sign up</Link> : isSignUp ? <Link to="/">Login</Link> : ""} </p>
+                  </div>
+                  {message && <p className='invalid'>{message}</p>}
+                </form>
             </div>
             <div className='flex-right'>
                 <img src={imgLogin} alt='' />
