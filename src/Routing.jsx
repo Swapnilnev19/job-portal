@@ -1,19 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
-import SignUp from "./components/Signup/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
-import ForgotPassword from "./components/Forget/ForgetPassword";
+import CommonForm from "./components/CommonForm/FormCommon";
 
 function Routing() {
   return (
     <>
         <Router>
             <Routes>
-                <Route exact path="" element={<Home></Home>} />
-                <Route exact path="/sign-up" element={<SignUp></SignUp>} />
-                <Route exact path="/dashboard" element={<Dashboard></Dashboard>} />
-                <Route exact path="/forgot-password" element={<ForgotPassword></ForgotPassword>} />
+                {/* <Route path="/" element={<Home></Home>} /> */}
+                <Route path="/" element={<CommonForm />} />
+                <Route path="/sign-up" element={<CommonForm/>} />
+                <Route path="/forget-password" element={<CommonForm/>} />
+                <Route path="/dashboard" element={<Dashboard></Dashboard>} />
             </Routes>
         </Router>
     </>
